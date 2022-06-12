@@ -1,8 +1,10 @@
 (ns clj-soap.api.soap.core
   (:require [clj-soap.entity.request :as request]
             [clj-soap.entity.measurement :as measurement])
-  (:import (javax.jws WebMethod WebService)
-           (javax.xml.ws Endpoint)))
+  (:import [javax.jws WebMethod WebService]
+           [javax.xml.ws Endpoint]))
+
+(set! *warn-on-reflection* true)
 
 (definterface MeasurementApi
   (^"[Lcljsoap.api.soap.Measurement;" getAllMeasurements [])
@@ -13,15 +15,15 @@
   MeasurementProducerImplementor [handler]
   MeasurementApi
   (^{WebMethod []} getAllMeasurements
-    [this]
+    [_]
     (some-> (handler {})
             (measurement/->as-array)))
 
   (^{WebMethod []} getMeasurements
-    [this req]
+    [_ req]
     (some-> (handler (request/obj->request req))
             (measurement/->as-array))))
 
-(defn ^Endpoint publish!
-  [{:keys [uri handler]}]
+(defn publish!
+  ^Endpoint [{:keys [uri handler]}]
   (Endpoint/publish uri (->MeasurementProducerImplementor handler)))

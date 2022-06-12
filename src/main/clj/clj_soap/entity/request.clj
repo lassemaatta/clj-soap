@@ -1,10 +1,10 @@
 (ns clj-soap.entity.request
   (:require [clojure.java.data :as j]
             [camel-snake-kebab.core :as csk])
-  (:import (cljsoap.api.soap Request)))
+  (:import [cljsoap.api.soap Request]))
 
 (defn obj->request
-  [^Request req]
+  [req]
   (let [m (j/from-java req)]
     {::water-type (-> m
                       :waterType

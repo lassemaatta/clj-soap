@@ -1,9 +1,11 @@
 (ns clj-soap.entity.measurement
-  (:import (cljsoap.api.soap Measurement)))
+  (:import [cljsoap.api.soap Measurement]))
 
-(defn ^Measurement make-measurement
+(set! *warn-on-reflection* true)
+
+(defn make-measurement
   "Given a map returns an instance of cljsoap.api.soap.Measurement"
-  [{:keys [water_temp location beach]}]
+  ^Measurement [{:keys [water_temp location beach]}]
   (Measurement. water_temp location beach))
 
 (defn ^"[Lcljsoap.api.soap.Measurement;" ->as-array

@@ -1,18 +1,18 @@
 (ns clj-soap.core
   (:gen-class)
-  (:require [clj-soap.api.soap.core :as soap-api]
-            [clj-soap.api.ouka.core :as ouka-api])
-  (:import (javax.xml.ws Endpoint)))
+  (:require [clj-soap.api.ouka.core :as ouka-api]
+            [clj-soap.api.soap.core :as soap-api])
+  (:import [javax.xml.ws Endpoint]))
 
 (def uri "http://localhost:8080/oukaApi")
 
-(defn ^Endpoint publish!
-  []
+(defn publish!
+  ^Endpoint []
   (soap-api/publish! {:uri     uri
                       :handler ouka-api/perform-request!}))
 
 (defn -main
-  [& args]
+  [& _args]
   (println "Publishing SOAP forwarder at " uri)
   (publish!))
 

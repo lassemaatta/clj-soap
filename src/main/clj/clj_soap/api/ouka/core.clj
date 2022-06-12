@@ -1,5 +1,5 @@
 (ns clj-soap.api.ouka.core
-  (:require [clj-http.client :as client]
+  (:require [clj-http.lite.client :as client]
             [clj-soap.entity.request :as request]
             [taoensso.timbre :as log]))
 
@@ -10,7 +10,7 @@
 (defn- water-type->id
   [water-type]
   (case water-type
-    :inland-waters 1
+    :inland-waters    1
     :coastland-waters 2))
 
 (defn- is-equal
